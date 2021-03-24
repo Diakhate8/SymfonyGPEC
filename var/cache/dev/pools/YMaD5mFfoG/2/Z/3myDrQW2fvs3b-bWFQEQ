@@ -1,0 +1,84 @@
+<?php //%255BApp%255CEntity%255CUser%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\Entity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Entity')),
+        clone ($p['ApiPlatform\\Core\\Annotation\\ApiResource'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Core\\Annotation\\ApiResource')),
+        clone ($p['Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity')),
+        clone $p['Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity'],
+        clone $p['Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity'],
+    ],
+    null,
+    [
+        'stdClass' => [
+            'repositoryClass' => [
+                'App\\Repository\\UserRepository',
+            ],
+            'collectionOperations' => [
+                1 => [
+                    'get' => [
+                        'security' => 'is_granted(\'ROLE_ADMIN_SYSTEM\')',
+                    ],
+                    'post' => [
+                        'access_control' => 'is_granted(\'CAN_POST\',object)',
+                    ],
+                ],
+            ],
+            'itemOperations' => [
+                1 => [
+                    'get' => [
+                        'access_control' => 'is_granted(\'CAN_POST\', object)',
+                        'normalization_context' => [
+                            'groups' => [
+                                'user:read',
+                                'user:item:get',
+                            ],
+                        ],
+                    ],
+                    'put' => [
+                        'access_control' => 'is_granted(\'CAN_POST\', object)',
+                        'access_control_message' => 'Accés non autorisé',
+                    ],
+                    'delete' => [
+                        'access_control' => 'is_granted(\'CAN_POST\',object)',
+                    ],
+                ],
+            ],
+            'message' => [
+                2 => 'Cette mail est déjà enregistrée',
+                'ce pseudo est  déjà utulisé',
+                'un client est deja enregistré sur ce numero de telephone',
+            ],
+            'fields' => [
+                2 => [
+                    'email',
+                ],
+                [
+                    'username',
+                ],
+                [
+                    'telephone',
+                ],
+            ],
+            'groups' => [
+                2 => [
+                    'Default',
+                ],
+                [
+                    'Default',
+                ],
+                [
+                    'Default',
+                ],
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[1],
+        $o[2],
+        $o[3],
+        $o[4],
+    ],
+    []
+); }];
