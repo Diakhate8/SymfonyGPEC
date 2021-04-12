@@ -16,157 +16,157 @@ class Echeancier
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $nbrEcheanciers;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $premierE;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $deuxiemeE;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $troisiemeE;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $quatriemeE;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $cinquiemeE;
 
      /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $sixiemeE;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $septiemeE;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $huitiemeE;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $neuviemeE;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $dixiemeE;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $onziemeE;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $douziemeE;
 
     /**
      * @ORM\Column(type="bigint")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $premierMont;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $deuxiemeMont;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $troisiemeMont;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $quatriemeMont;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $cinquiemeMont;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $sixiemeMont;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $septiemeMont;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $huitiemeMont;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $neuviemeMont;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $dixiemeMont;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $onziemeMont;
 
     /**
      * @ORM\Column(type="bigint", nullable=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $douziemeMont;
 

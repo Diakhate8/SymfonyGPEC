@@ -15,8 +15,18 @@ final class JWTAuthenticationSuccessResponse extends JsonResponse
      * @param string $token Json Web Token
      * @param array  $data  Extra data passed to the response
      */
-    public function __construct($token, array $data = [])
+    public function __construct($token, array $data = [], array $jwtCookies = [])
     {
-        parent::__construct(['token' => $token] + $data);
+        if (!$jwtCookies) {
+            parent::__construct(['token' => $token] + $data);
+
+            return;
+        }
+
+        parent::__construct($data);
+
+        foreach ($jwtCookies as $cookie) {
+            $this->headers->setCookie($cookie);
+        }
     }
 }

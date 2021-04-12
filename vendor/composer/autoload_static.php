@@ -7,15 +7,17 @@ namespace Composer\Autoload;
 class ComposerStaticInit87042cd64978333523ca05837434e9ca
 {
     public static $files = array (
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
     );
 
@@ -38,15 +40,18 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Php73\\' => 23,
             'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
             'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
+            'Symfony\\Polyfill\\Intl\\Icu\\' => 26,
             'Symfony\\Polyfill\\Intl\\Grapheme\\' => 31,
             'Symfony\\Flex\\' => 13,
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Contracts\\Service\\' => 26,
+            'Symfony\\Contracts\\HttpClient\\' => 29,
             'Symfony\\Contracts\\EventDispatcher\\' => 34,
             'Symfony\\Contracts\\Cache\\' => 24,
             'Symfony\\Component\\Yaml\\' => 23,
@@ -69,7 +74,6 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
             'Symfony\\Component\\OptionsResolver\\' => 34,
             'Symfony\\Component\\Mime\\' => 23,
             'Symfony\\Component\\Intl\\' => 23,
-            'Symfony\\Component\\Inflector\\' => 28,
             'Symfony\\Component\\HttpKernel\\' => 29,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Form\\' => 23,
@@ -100,7 +104,17 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
             'Psr\\Link\\' => 9,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
+            'ProxyManager\\' => 13,
             'PhpParser\\' => 10,
+            'Pagerfanta\\Twig\\' => 16,
+            'Pagerfanta\\Solarium\\' => 20,
+            'Pagerfanta\\Elastica\\' => 20,
+            'Pagerfanta\\Doctrine\\PHPCRODM\\' => 29,
+            'Pagerfanta\\Doctrine\\ORM\\' => 24,
+            'Pagerfanta\\Doctrine\\MongoDBODM\\' => 31,
+            'Pagerfanta\\Doctrine\\DBAL\\' => 25,
+            'Pagerfanta\\Doctrine\\Collections\\' => 32,
+            'Pagerfanta\\Adapter\\' => 19,
             'Pagerfanta\\' => 11,
             'PackageVersions\\' => 16,
         ),
@@ -118,6 +132,7 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         array (
             'Lexik\\Bundle\\JWTAuthenticationBundle\\' => 37,
             'Lcobucci\\JWT\\' => 13,
+            'Lcobucci\\Clock\\' => 15,
             'Laminas\\ZendFrameworkBridge\\' => 28,
             'Laminas\\EventManager\\' => 21,
             'Laminas\\Code\\' => 13,
@@ -132,10 +147,12 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         ),
         'D' => 
         array (
+            'Doctrine\\SqlFormatter\\' => 22,
             'Doctrine\\Persistence\\' => 21,
             'Doctrine\\ORM\\' => 13,
             'Doctrine\\Migrations\\' => 20,
             'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Inflector\\' => 19,
             'Doctrine\\DBAL\\' => 14,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Inflector\\' => 26,
@@ -175,6 +192,10 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
         ),
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
         'Symfony\\Polyfill\\Php73\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
@@ -195,6 +216,10 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
         ),
+        'Symfony\\Polyfill\\Intl\\Icu\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-icu',
+        ),
         'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
@@ -210,6 +235,10 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         'Symfony\\Contracts\\Service\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/service-contracts',
+        ),
+        'Symfony\\Contracts\\HttpClient\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-client-contracts',
         ),
         'Symfony\\Contracts\\EventDispatcher\\' => 
         array (
@@ -298,10 +327,6 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         'Symfony\\Component\\Intl\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/intl',
-        ),
-        'Symfony\\Component\\Inflector\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/inflector',
         ),
         'Symfony\\Component\\HttpKernel\\' => 
         array (
@@ -411,17 +436,57 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
+        'ProxyManager\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofphp/proxy-manager-lts/src/ProxyManager',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
+        'Pagerfanta\\Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Twig',
+        ),
+        'Pagerfanta\\Solarium\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Adapter/Solarium',
+        ),
+        'Pagerfanta\\Elastica\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Adapter/Elastica',
+        ),
+        'Pagerfanta\\Doctrine\\PHPCRODM\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Adapter/Doctrine/PHPCRODM',
+        ),
+        'Pagerfanta\\Doctrine\\ORM\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Adapter/Doctrine/ORM',
+        ),
+        'Pagerfanta\\Doctrine\\MongoDBODM\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Adapter/Doctrine/MongoDBODM',
+        ),
+        'Pagerfanta\\Doctrine\\DBAL\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Adapter/Doctrine/DBAL',
+        ),
+        'Pagerfanta\\Doctrine\\Collections\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Adapter/Doctrine/Collections',
+        ),
+        'Pagerfanta\\Adapter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/src/Adapter',
+        ),
         'Pagerfanta\\' => 
         array (
-            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/src/Pagerfanta',
+            0 => __DIR__ . '/..' . '/pagerfanta/pagerfanta/lib/Core',
         ),
         'PackageVersions\\' => 
         array (
-            0 => __DIR__ . '/..' . '/ocramius/package-versions/src/PackageVersions',
+            0 => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions',
         ),
         'Nelmio\\CorsBundle\\' => 
         array (
@@ -447,6 +512,10 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         array (
             0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
         ),
+        'Lcobucci\\Clock\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lcobucci/clock/src',
+        ),
         'Laminas\\ZendFrameworkBridge\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
@@ -467,6 +536,10 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         array (
             0 => __DIR__ . '/..' . '/easycorp/easyadmin-bundle/src',
         ),
+        'Doctrine\\SqlFormatter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/sql-formatter/src',
+        ),
         'Doctrine\\Persistence\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Persistence',
@@ -482,6 +555,10 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
+        ),
+        'Doctrine\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
         ),
         'Doctrine\\DBAL\\' => 
         array (
@@ -544,24 +621,18 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'P' => 
-        array (
-            'ProxyManager\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/ocramius/proxy-manager/src',
-            ),
-        ),
-    );
-
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Collator' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Collator.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'IntlDateFormatter' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/IntlDateFormatter.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Locale' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Locale.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'NumberFormatter' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/NumberFormatter.php',
-        'SqlFormatter' => __DIR__ . '/..' . '/jdorn/sql-formatter/lib/SqlFormatter.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -569,7 +640,6 @@ class ComposerStaticInit87042cd64978333523ca05837434e9ca
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit87042cd64978333523ca05837434e9ca::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit87042cd64978333523ca05837434e9ca::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit87042cd64978333523ca05837434e9ca::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit87042cd64978333523ca05837434e9ca::$classMap;
 
         }, null, ClassLoader::class);

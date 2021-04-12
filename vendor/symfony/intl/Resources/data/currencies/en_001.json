@@ -1,6 +1,9 @@
 {
-    "Version": "36",
     "Names": {
+        "BMD": [
+            "BMD",
+            "Bermudian Dollar"
+        ],
         "BYB": [
             "BYB",
             "Belarusian New Rouble (1994–1999)"
@@ -20,6 +23,10 @@
         "LVR": [
             "LVR",
             "Latvian Rouble"
+        ],
+        "PHP": [
+            "PHP",
+            "Philippine Peso"
         ],
         "RUB": [
             "RUB",

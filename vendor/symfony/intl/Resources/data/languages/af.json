@@ -1,5 +1,4 @@
 {
-    "Version": "36",
     "Names": {
         "aa": "Afar",
         "ab": "Abkasies",
@@ -146,7 +145,7 @@
         "io": "Ido",
         "is": "Yslands",
         "it": "Italiaans",
-        "iu": "Inuïties",
+        "iu": "Inoektitoet",
         "ja": "Japannees",
         "jbo": "Lojban",
         "jgo": "Ngomba",
@@ -397,6 +396,7 @@
         "ar_001": "Moderne Standaardarabies",
         "en_GB": "Engels (VK)",
         "en_US": "Engels (VSA)",
+        "fa_AF": "Dari",
         "nds_NL": "Nedersaksies",
         "nl_BE": "Vlaams"
     }

@@ -9,8 +9,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
+use Vich\UploaderBundle\Metadata\CacheWarmer;
 use Vich\UploaderBundle\Storage\StorageInterface;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * @author Dustin Dobervich <ddobervich@gmail.com>
@@ -73,11 +73,8 @@ final class VichUploaderExtension extends Extension
         if ($config['form']) {
             $loader->load('form.xml');
         }
-        if ($config['templating']) {
-            $loader->load('templating.xml');
-            $container->setAlias(UploaderHelper::class, new Alias('vich_uploader.templating.helper.uploader_helper', false));
-        }
-        if ($config['twig'] && $config['templating']) {
+
+        if ($config['twig']) {
             $loader->load('twig.xml');
         }
     }
@@ -115,7 +112,7 @@ final class VichUploaderExtension extends Extension
                 $bundleName = \substr($directory['path'], 1, \strpos($directory['path'], '/') - 1);
 
                 if (!isset($bundles[$bundleName])) {
-                    throw new \RuntimeException(\sprintf('The bundle "%s" has not been registered with AppKernel. Available bundles: %s', $bundleName, \implode(', ', \array_keys($bundles))));
+                    throw new \RuntimeException(\sprintf('The bundle "%s" has not been registered with Kernel. Available bundles: %s', $bundleName, \implode(', ', \array_keys($bundles))));
                 }
 
                 $ref = new \ReflectionClass($bundles[$bundleName]);
@@ -138,6 +135,10 @@ final class VichUploaderExtension extends Extension
         } elseif ('file' === $config['metadata']['cache']) {
             $container
                 ->getDefinition('vich_uploader.metadata.cache.file_cache')
+                ->replaceArgument(0, $config['metadata']['file_cache']['dir'])
+            ;
+            $container
+                ->getDefinition(CacheWarmer::class)
                 ->replaceArgument(0, $config['metadata']['file_cache']['dir'])
             ;
 
@@ -199,9 +200,7 @@ final class VichUploaderExtension extends Extension
     protected function createNamerService(ContainerBuilder $container, string $mappingName, array $mapping): array
     {
         $serviceId = \sprintf('%s.%s', $mapping['namer']['service'], $mappingName);
-        $container->setDefinition(
-            $serviceId, new ChildDefinition($mapping['namer']['service'])
-        );
+        $container->setDefinition($serviceId, new ChildDefinition($mapping['namer']['service']));
 
         $mapping['namer']['service'] = $serviceId;
 
@@ -220,7 +219,6 @@ final class VichUploaderExtension extends Extension
             ->replaceArgument(0, $name)
             ->replaceArgument(1, new Reference('vich_uploader.adapter.'.$driver));
 
-        // propel does not require tags to work TODO check if this test still makes sense
         if (isset($this->tagMap[$driver])) {
             $definition->addTag($this->tagMap[$driver], ['priority' => $priority]);
         }

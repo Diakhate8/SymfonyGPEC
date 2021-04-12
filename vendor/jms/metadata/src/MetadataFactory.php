@@ -31,7 +31,7 @@ class MetadataFactory implements AdvancedMetadataFactoryInterface
     private $loadedClassMetadata = [];
 
     /**
-     * @var null|string
+     * @var string|null
      */
     private $hierarchyMetadataClass;
 
@@ -62,7 +62,6 @@ class MetadataFactory implements AdvancedMetadataFactoryInterface
         $this->cache = $cache;
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -78,6 +77,7 @@ class MetadataFactory implements AdvancedMetadataFactoryInterface
                 if (null !== $classMetadata = $this->filterNullMetadata($this->loadedClassMetadata[$name])) {
                     $this->addClassMetadata($metadata, $classMetadata);
                 }
+
                 continue;
             }
 
@@ -90,7 +90,11 @@ class MetadataFactory implements AdvancedMetadataFactoryInterface
 
                 if (null !== $classMetadata) {
                     if (!$classMetadata instanceof ClassMetadata) {
-                        throw new \LogicException(sprintf('The cache must return instances of ClassMetadata, but got %s.', var_export($classMetadata, true)));
+                        throw new \LogicException(sprintf(
+                            'The cache must return instances of ClassMetadata for class %s, but got %s.',
+                            $className,
+                            var_export($classMetadata, true)
+                        ));
                     }
 
                     if ($this->debug && !$classMetadata->isFresh()) {
@@ -154,7 +158,8 @@ class MetadataFactory implements AdvancedMetadataFactoryInterface
             }
         } else {
             if (null === $metadata) {
-                $metadata = new $this->hierarchyMetadataClass();
+                $class = $this->hierarchyMetadataClass;
+                $metadata = new $class();
             }
 
             $metadata->addClassMetadata($toAdd);
@@ -188,6 +193,7 @@ class MetadataFactory implements AdvancedMetadataFactoryInterface
                 if (isset($addedInterfaces[$interface->getName()])) {
                     continue;
                 }
+
                 $addedInterfaces[$interface->getName()] = true;
 
                 $newHierarchy[] = $interface;
@@ -201,6 +207,7 @@ class MetadataFactory implements AdvancedMetadataFactoryInterface
 
     /**
      * @param ClassMetadata|ClassHierarchyMetadata|MergeableInterface $metadata
+     *
      * @return ClassMetadata|ClassHierarchyMetadata|MergeableInterface
      */
     private function filterNullMetadata($metadata = null)

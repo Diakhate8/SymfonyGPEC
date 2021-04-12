@@ -1,5 +1,4 @@
 {
-    "Version": "36",
     "Names": {
         "AD": "Andora",
         "AE": "Združeni arabski emirati",
@@ -41,7 +40,7 @@
         "CA": "Kanada",
         "CC": "Kokosovi otoki",
         "CD": "Demokratična republika Kongo",
-        "CF": "Centralnoafriška republika",
+        "CF": "Srednjeafriška republika",
         "CG": "Kongo - Brazzaville",
         "CH": "Švica",
         "CI": "Slonokoščena obala",
@@ -95,7 +94,7 @@
         "GU": "Guam",
         "GW": "Gvineja Bissau",
         "GY": "Gvajana",
-        "HK": "Posebno administrativno območje LR Kitajske Hongkong",
+        "HK": "Posebno upravno območje Ljudske republike Kitajske Hongkong",
         "HM": "Heardov otok in McDonaldovi otoki",
         "HN": "Honduras",
         "HR": "Hrvaška",
@@ -148,7 +147,7 @@
         "ML": "Mali",
         "MM": "Mjanmar (Burma)",
         "MN": "Mongolija",
-        "MO": "Posebno administrativno območje LR Kitajske Macao",
+        "MO": "Posebno upravno območje Ljudske republike Kitajske Macao",
         "MP": "Severni Marianski otoki",
         "MQ": "Martinik",
         "MR": "Mavretanija",

@@ -109,12 +109,8 @@ class FormFactoryBuilder implements FormFactoryBuilderInterface
      */
     public function addTypeExtension(FormTypeExtensionInterface $typeExtension)
     {
-        if (method_exists($typeExtension, 'getExtendedTypes')) {
-            foreach ($typeExtension::getExtendedTypes() as $extendedType) {
-                $this->typeExtensions[$extendedType][] = $typeExtension;
-            }
-        } else {
-            $this->typeExtensions[$typeExtension->getExtendedType()][] = $typeExtension;
+        foreach ($typeExtension::getExtendedTypes() as $extendedType) {
+            $this->typeExtensions[$extendedType][] = $typeExtension;
         }
 
         return $this;
@@ -178,7 +174,7 @@ class FormFactoryBuilder implements FormFactoryBuilderInterface
             if (\count($this->typeGuessers) > 1) {
                 $typeGuesser = new FormTypeGuesserChain($this->typeGuessers);
             } else {
-                $typeGuesser = isset($this->typeGuessers[0]) ? $this->typeGuessers[0] : null;
+                $typeGuesser = $this->typeGuessers[0] ?? null;
             }
 
             $extensions[] = new PreloadedExtension($this->types, $this->typeExtensions, $typeGuesser);

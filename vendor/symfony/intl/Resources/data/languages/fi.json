@@ -1,5 +1,4 @@
 {
-    "Version": "36",
     "Names": {
         "aa": "afar",
         "ab": "abhaasi",
@@ -101,7 +100,7 @@
         "chp": "chipewyan",
         "chr": "cherokee",
         "chy": "cheyenne",
-        "ckb": "sorani",
+        "ckb": "soranî",
         "co": "korsika",
         "cop": "kopti",
         "cps": "capiznon",
@@ -606,6 +605,7 @@
         "es_419": "amerikanespanja",
         "es_ES": "euroopanespanja",
         "es_MX": "meksikonespanja",
+        "fa_AF": "dari",
         "fr_CA": "kanadanranska",
         "fr_CH": "sveitsinranska",
         "nds_NL": "alankomaidenalasaksa",
@@ -613,8 +613,6 @@
         "pt_BR": "brasilianportugali",
         "pt_PT": "euroopanportugali",
         "ro_MD": "moldova",
-        "sw_CD": "kingwana",
-        "zh_Hans": "yksinkertaistettu kiina",
-        "zh_Hant": "perinteinen kiina"
+        "sw_CD": "kingwana"
     }
 }

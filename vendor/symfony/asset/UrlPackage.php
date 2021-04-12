@@ -67,7 +67,7 @@ class UrlPackage extends Package
     /**
      * {@inheritdoc}
      */
-    public function getUrl($path)
+    public function getUrl(string $path)
     {
         if ($this->isAbsoluteUrl($path)) {
             return $path;
@@ -93,11 +93,9 @@ class UrlPackage extends Package
     /**
      * Returns the base URL for a path.
      *
-     * @param string $path
-     *
      * @return string The base URL
      */
-    public function getBaseUrl($path)
+    public function getBaseUrl(string $path)
     {
         if (1 === \count($this->baseUrls)) {
             return $this->baseUrls[0];
@@ -112,11 +110,9 @@ class UrlPackage extends Package
      * Override this method to change the default distribution strategy.
      * This method should always return the same base URL index for a given path.
      *
-     * @param string $path
-     *
      * @return int The base URL index for the given path
      */
-    protected function chooseBaseUrl($path)
+    protected function chooseBaseUrl(string $path)
     {
         return (int) fmod(hexdec(substr(hash('sha256', $path), 0, 10)), \count($this->baseUrls));
     }
@@ -127,8 +123,8 @@ class UrlPackage extends Package
         foreach ($urls as $url) {
             if ('https://' === substr($url, 0, 8) || '//' === substr($url, 0, 2)) {
                 $sslUrls[] = $url;
-            } elseif (null === parse_url($url, PHP_URL_SCHEME)) {
-                throw new InvalidArgumentException(sprintf('"%s" is not a valid URL', $url));
+            } elseif (null === parse_url($url, \PHP_URL_SCHEME)) {
+                throw new InvalidArgumentException(sprintf('"%s" is not a valid URL.', $url));
             }
         }
 

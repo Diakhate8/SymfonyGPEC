@@ -1,5 +1,4 @@
 {
-    "Version": "36",
     "Names": {
         "ADP": [
             "ADP",
@@ -514,7 +513,7 @@
             "Dinar Jordan"
         ],
         "JPY": [
-            "JP¥",
+            "¥",
             "Yên Nhật"
         ],
         "KES": [

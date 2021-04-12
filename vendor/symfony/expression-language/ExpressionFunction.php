@@ -64,7 +64,6 @@ class ExpressionFunction
     /**
      * Creates an ExpressionFunction from a PHP function name.
      *
-     * @param string      $phpFunctionName        The PHP function name
      * @param string|null $expressionFunctionName The expression function name (default: same than the PHP function name)
      *
      * @return self
@@ -73,7 +72,7 @@ class ExpressionFunction
      * @throws \InvalidArgumentException if given PHP function name is in namespace
      *                                   and expression function name is not defined
      */
-    public static function fromPhp($phpFunctionName, $expressionFunctionName = null)
+    public static function fromPhp(string $phpFunctionName, string $expressionFunctionName = null)
     {
         $phpFunctionName = ltrim($phpFunctionName, '\\');
         if (!\function_exists($phpFunctionName)) {
@@ -85,12 +84,12 @@ class ExpressionFunction
             throw new \InvalidArgumentException(sprintf('An expression function name must be defined when PHP function "%s" is namespaced.', $phpFunctionName));
         }
 
-        $compiler = function () use ($phpFunctionName) {
-            return sprintf('\%s(%s)', $phpFunctionName, implode(', ', \func_get_args()));
+        $compiler = function (...$args) use ($phpFunctionName) {
+            return sprintf('\%s(%s)', $phpFunctionName, implode(', ', $args));
         };
 
-        $evaluator = function () use ($phpFunctionName) {
-            return $phpFunctionName(...\array_slice(\func_get_args(), 1));
+        $evaluator = function ($p, ...$args) use ($phpFunctionName) {
+            return $phpFunctionName(...$args);
         };
 
         return new self($expressionFunctionName ?: end($parts), $compiler, $evaluator);

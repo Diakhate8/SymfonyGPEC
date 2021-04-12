@@ -20,61 +20,96 @@ class Facture
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:vente","get:contrat"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=20)
      * @Assert\NotBlank(message="Veuillez entrez lenumero de facture")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"get:contrat"})
      */
     private $numFacture;
 
      /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="entrez la reference du contrat")
+     * @Groups({"get:contrat"})
      */
     private $reference;
 
     /**
      * @ORM\Column(type="bigint")
      * @Assert\NotBlank(message="Veuillez entrez lacompte")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:vente","get:contrat"})
      */
     private $acompte;
 
     /**
      * @ORM\Column(type="bigint")
      * @Assert\NotBlank(message="Veuillez entrez le montant a verser")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:vente","get:contrat"})
      */
     private $montAVerser;
 
     /**
      * @ORM\Column(type="bigint")
      * @Assert\NotBlank(message="Veuillez entrez le montant verse")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:vente"})
      */
     private $montVerse;
 
     /**
      * @ORM\Column(type="bigint")
      * @Assert\NotBlank(message="Veuillez entrez le montant restant a payer")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:vente","get:contrat"})
      */
     private $resteAPayer;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Commande", mappedBy="facture", orphanRemoval=true)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"get:contrat"})
      */
-    private $commandes;
+    private $commandes; 
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Contrat", inversedBy="factures")
      */
     private $contrat;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank(message="entrez le nom du client")
+     * @Groups({"get:contrat"})     
+     */
+    private $nomClient;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\NotBlank(message="entrez le nom du subroge")
+     * @Groups({"get:contrat"})
+     */
+    private $nomSubroge;
+
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     * @Assert\NotBlank(message="entrez le numero de telephone du client")
+     * @Groups({"get:contrat"})
+     */
+    private $telCient;
+
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     * @Assert\NotBlank(message="entrez le numero de telephone du subroge")
+     * @Groups({"get:contrat"})
+     */
+    private $telSubroge;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"get:contrat"})
+     */
+    private $adresse;
 
     public function __construct()
     {
@@ -230,6 +265,66 @@ class Facture
     public function setContrat(?Contrat $contrat): self
     {
         $this->contrat = $contrat;
+
+        return $this;
+    }
+
+    public function getNomClient(): ?string
+    {
+        return $this->nomClient;
+    }
+
+    public function setNomClient(string $nomClient): self
+    {
+        $this->nomClient = $nomClient;
+
+        return $this;
+    }
+
+    public function getNomSubroge(): ?string
+    {
+        return $this->nomSubroge;
+    }
+
+    public function setNomSubroge(?string $nomSubroge): self
+    {
+        $this->nomSubroge = $nomSubroge;
+
+        return $this;
+    }
+
+    public function getTelCient(): ?string
+    {
+        return $this->telCient;
+    }
+
+    public function setTelCient(?string $telCient): self
+    {
+        $this->telCient = $telCient;
+
+        return $this;
+    }
+
+    public function getTelSubroge(): ?string
+    {
+        return $this->telSubroge;
+    }
+
+    public function setTelSubroge(?string $telSubroge): self
+    {
+        $this->telSubroge = $telSubroge;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }

@@ -1,5 +1,4 @@
 {
-    "Version": "36",
     "Names": {
         "aa": "afar",
         "ab": "abhază",
@@ -135,7 +134,7 @@
         "fi": "finlandeză",
         "fil": "filipineză",
         "fj": "fijiană",
-        "fo": "faroeză",
+        "fo": "feroeză",
         "fon": "fon",
         "fr": "franceză",
         "frc": "franceză cajun",
@@ -469,7 +468,7 @@
         "twq": "tasawaq",
         "ty": "tahitiană",
         "tyv": "tuvană",
-        "tzm": "tamazight din Altasul Central",
+        "tzm": "tamazight din Atlasul Central",
         "udm": "udmurt",
         "ug": "uigură",
         "uga": "ugaritică",
@@ -515,6 +514,7 @@
         "ar_001": "arabă standard modernă",
         "de_CH": "germană standard (Elveția)",
         "es_ES": "spaniolă (Europa)",
+        "fa_AF": "dari",
         "nds_NL": "saxona de jos",
         "nl_BE": "flamandă",
         "pt_PT": "portugheză (Europa)",

@@ -21,129 +21,150 @@ class Contrat
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:read", "get:vente", "get:contrat"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=55)
      * @Assert\NotBlank(message="entrez le numéro du contrat")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:read", "get:vente", "get:contrat"})
      */
     private $numContrat;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="entrez la reference du contrat")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:read", "get:vente", "get:contrat"})
      */
     private $reference;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="entrez le libele du contrat")
+     * @Groups({ "get:contrat"})
      */
     private $libele;
   
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="entrez lintitule")
+     * @Groups({ "get:contrat"})
      */
     private $intitule;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({ "get:contrat"})
      */
     private $arrete;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $preambule;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $article1;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $article2;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $article3;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $article4;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $article5;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $article6;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $article7;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $article8;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $article9;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({ "get:contrat"})
      */
     private $article10;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Facture", mappedBy="contrat")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $factures;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="contrats")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $client;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="contrats")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $userCreateur;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Echeancier", cascade={"persist", "remove"})
-     * @Groups({"post:read", "post:write"})
+     * @Groups({ "get:contrat", "get:vente"})
      */
     private $echeancier;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="contrat")
+     * @Groups({ "get:contrat", "get:vente"})
+     */
+    private $commandes;
 
     public function __construct()
     {
         $this->factures = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -426,6 +447,36 @@ class Contrat
     public function setEcheancier(?Echeancier $echeancier): self
     {
         $this->echeancier = $echeancier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->setContrat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getContrat() === $this) {
+                $commande->setContrat(null);
+            }
+        }
 
         return $this;
     }

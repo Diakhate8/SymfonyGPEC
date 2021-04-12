@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -38,7 +39,7 @@ class OtherContratController extends AbstractController
     /**
      * @Route("/contrat/other", name="othercontrat.add", methods={"Post"})
      */
-    public function addOtherContrat( Request $request,ClientRepository $clientRipo, EntityManagerInterface $em,Modalites $modals,
+    public function addOtherContrat(Request $request,ClientRepository $clientRipo, EntityManagerInterface $em,Modalites $modals,
     FormatedDate $formDate,NumberToWords $toWords,ModaliteString $modS, ValidatorInterface $validator ,SerializerInterface $serializerInt)
     {
         $userOnline = $this->getUser();
@@ -46,26 +47,19 @@ class OtherContratController extends AbstractController
         $jsonRecu = $request->getContent();  $donneeRecu = json_decode($jsonRecu);
         $day = new \DateTime(); $jour =$day->format('d/m/Y');//dateTimeToString
         $br="\n"; $montAVerser=0; $mesArticles=" "; $prodsPreambule="\n";
-        // dd($donneeRecu);
 
         // Get Datas Client If Existe
-        if(isset($donneeRecu->client)){
+        if(!empty($donneeRecu->client)){
             $dataC=$donneeRecu->client;  
-            if(isset($dataC->numero)){
-                $numeroC = $dataC->numero;
-                $entityClient = $clientRipo->findOneBy(array('numClient' => $numeroC));
-            }elseif(isset($dataC->cni)){
-                $cniC = $dataC->cni;
-                $entityClient = $clientRipo->findOneBy(array('cni' => $cniC));
-            }else{
-                throw new Exception("Vous n'avez pas encore de contrat ");
-            }
+            $numeroC = $dataC->numero;
+            $entityClient = $clientRipo->findOneBy(array('numClient' => $numeroC));
+            if(!$entityClient){throw new Exception("Vous n'avez pas encore de contrat ");}
         }else{
-            throw new Exception("veuillez saisir les informations du client à rechercher", 500);         
+            throw new Exception("veuillez saisir les informations du client ");         
         }
        
         if($entityClient){            
-            $facture = new Facture(); $ref=rand(10,9999999)."$numeroC";
+            $facture = new Facture(); $ref=rand(10,9999999)."$numeroC";$contrat = new Contrat();
                        
              // Enregistrement des produits
             if(isset($donneeRecu->articles)){
@@ -74,12 +68,23 @@ class OtherContratController extends AbstractController
                 // Enregistrement  facture
                  if(isset($donneeRecu->facture)){
                      // Get datas facture
-                     $datasFacture=$donneeRecu->facture;
-                     $libele = $datasFacture->libele;  $acompte = $datasFacture->acompte;        
-                     $nbrEcheanciers= $datasFacture->nbrEcheanciers;
+                    $datasFacture=$donneeRecu->facture;  $adresse = $datasFacture->adresse;  
+                    $libele = $datasFacture->libele;  $acompte = $datasFacture->acompte;        
+                    $nbrEcheanciers = $datasFacture->nbrEcheanciers;
+                    $numberContrat=$entityClient->getNumClient();
+                    //recuperation id contrat
+                    $contratRepo=$this->getDoctrine()->getRepository(Contrat::class);
+                    $oldContrat = $contratRepo->findOneBy(array("numContrat"=>"$numberContrat"));
+                    $idContrat=$oldContrat->getId();
+                    //rechercher ancien facture
+                    $factureRepo=$this->getDoctrine()->getRepository(Facture::class);
+                    $oldFacture = $factureRepo->findOneBy(array('contrat' => $idContrat));
+                // dd($oldFacture);
+                    $nomSubroge = $oldFacture->getNomSubroge();$telSubroge = $oldFacture->getTelSubroge();
                  }else{
                      throw new Exception("Veuillez saisir les informations de la facture", 500);      
                  } 
+                 
                  // Get and Set datas Commande[{}]
                 for($i=0;$i<count($articles);$i++){
                      $commande=new Commande();
@@ -87,7 +92,8 @@ class OtherContratController extends AbstractController
                              ->setPrixUnitaire($articles[$i]->prixU)
                              ->setNombre($articles[$i]->nbr)
                              ->setPrixTotal($articles[$i]->prixU*$articles[$i]->nbr)
-                             ->setFacture($facture);
+                             ->setFacture($facture)
+                             ->setContrat($contrat);
                      $em->persist($commande); 
                      //nom et nombre
                      $mesArticles.=$toWords->inWords($articles[$i]->nbr)." ".$articles[$i]->article." ,"; 
@@ -97,15 +103,20 @@ class OtherContratController extends AbstractController
                      $montAVerser+=$articles[$i]->prixU*$articles[$i]->nbr;         
                      $restAPayer=$montAVerser-$acompte;
                 } 
-                 // Set datas facture
-                $facture->setNumFacture($numeroC)
-                        ->setReference($ref)
-                        ->setMontAVerser($montAVerser)
-                        ->setAcompte($acompte)
-                        ->setMontVerse($acompte)
-                        ->setResteAPayer($restAPayer);
-                $em->persist($facture);  
-                // dd($facture);
+                    // Set datas facture
+                    $facture->setNumFacture($numeroC)
+                    ->setReference($ref)
+                    ->setNomClient($entityClient->getNom().' '.$entityClient->getPrenom())
+                    ->setTelCient($entityClient->getTelephone())
+                    ->setNomSubroge($nomSubroge)
+                    ->setTelSubroge($telSubroge)
+                    ->setMontAVerser($montAVerser)
+                    ->setAcompte($acompte)
+                    ->setMontVerse($acompte)
+                    ->setResteAPayer($restAPayer)
+                    ->setAdresse($adresse);
+                    $em->persist($facture);  
+                    // dd($facture);
             }else{
                 throw new Exception("Veuillez saisir les produits commandés", 500);      
             }
@@ -130,22 +141,19 @@ class OtherContratController extends AbstractController
                 ->setDixiemeE($sc['dixiemeE']) ->setDixiemeMont($sc['dixiemeMont'])
                 ->setOnziemeE($sc['onziemeE'])->setOnziemeMont($sc['onziemeMont'])
                 ->setDouziemeE($sc['douziemeE'])->setDouziemeMont($sc['douziemeMont']); 
-                // dd($entityEcheancier);                       
             
             $em->persist($entityEcheancier);
-                   
+                                //    dd($entityEcheancier);                       
+
             //Enregistrement du contrat                
-            $contrat = new Contrat();
             // recuperation des donnees du contrat proformat
-            $contratRepo=$this->getDoctrine()->getRepository(Contrat::class);
             $entityContrat = $contratRepo->findOneBy(array("reference"=>"bokokomarket"));
             // Old contrat
             $numberContrat=$entityClient->getNumClient();
-            $contratRepo=$this->getDoctrine()->getRepository(Contrat::class);
             $oldContrat = $contratRepo->findOneBy(array("numContrat"=>"$numberContrat"));
             // dd($oldContrat);
+
             // Ajout new contrat        
-            $contrat = new Contrat();
             $contrat->setClient($entityClient)
                     ->setEcheancier($entityEcheancier)
                     ->setCreatedAt($day)
@@ -160,33 +168,30 @@ class OtherContratController extends AbstractController
             $contrat->setLibele('CONTRAT DE VENTE DE BIEN '.$libele)
                     ->setIntitule($oldContrat->getIntitule() )
                     ->setArrete($entityContrat->getArrete());
-            $contrat->setPreambule($entityContrat->getPreambule()."<br/>".$prodsPreambule);
+            $contrat->setPreambule($entityContrat->getPreambule()."\n".$prodsPreambule);
             // Objet du contrat                
-            $contrat->setArticle1($entityContrat->getArticle1().$mesArticles.
-                "moyennant paiement de la somme totale de ".$toWords->inWords($montAVerser)." ($montAVerser) F CFA");        
+            $contrat->setArticle1($entityContrat->getArticle1().$mesArticles."moyennant paiement de la somme totale de ".$toWords->inWords($montAVerser)." ($montAVerser) F CFA");        
             // Mise a disposition            
             $contrat->setArticle2($entityContrat->getArticle2());
             // dd($contrat);
             // Modalites de paiement            
             $scContrat=$modS->modStringSix($dataSc);/*convertion date to string */
-            $contrat->setArticle3($entityContrat->getArticle3()."
-                <br/>Le client versera un acompte de ".$toWords->inWords($acompte).
-                "($acompte) FCFA à la date de livraison Le montant restant, à savoir les ".$toWords->inWords($restAPayer).
-                "($restAPayer) F CFA sera versé en $nbrEcheanciers échéanciers<br/>".
-                    "<br>". $scContrat['premierE'].
-                    "<br>". $scContrat['deuxiemeE'].
-                    "<br>". $scContrat['troisiemeE']. 
-                    "<br>". $scContrat['quatriemeE']. 
-                    "<br>". $scContrat['cinquiemeE']. 
-                    "<br>". $scContrat['sixiemeE'] .
-                    "<br>". $scContrat['septiemeE'].
-                    "<br>". $scContrat['huitiemeE']. 
-                    "<br>". $scContrat['neuviemeE']. 
-                    "<br>". $scContrat['dixiemeE']. 
-                    "<br>". $scContrat['onziemeE'].
-                    "<br>". $scContrat['douziemeE'].
+            $contrat->setArticle3($entityContrat->getArticle3()."\nLe client versera un acompte de ".$toWords->inWords($acompte)."($acompte) FCFA à la date de livraison .
+            Le montant restant, à savoir les ".$toWords->inWords($restAPayer)." ($restAPayer) F CFA sera versé en $nbrEcheanciers échéanciers\n".
+                     $scContrat['premierE'].
+                     $scContrat['deuxiemeE'].
+                     $scContrat['troisiemeE']. 
+                     $scContrat['quatriemeE']. 
+                     $scContrat['cinquiemeE']. 
+                     $scContrat['sixiemeE'] .
+                     $scContrat['septiemeE'].
+                     $scContrat['huitiemeE']. 
+                     $scContrat['neuviemeE']. 
+                     $scContrat['dixiemeE']. 
+                     $scContrat['onziemeE'].
+                     $scContrat['douziemeE'].
 
-                "<br/>Le premier paiement prendra effet le $dataSc->premierE Le vendeur déclare accepter les moyens de paiement suivant :\nVirement bancaire\nDépôt direct en espèces\nPaiement électronique transfert d’argent (Wari, Orange money,Wave ,Wafacash, Cofina, Moneygram), les frais de transferts sont à la charge du client.\nPaiement à l’agence"
+                "\nLe premier paiement prendra effet le $dataSc->premierE Le vendeur déclare accepter les moyens de paiement suivant :\nVirement bancaire\nDépôt direct en espèces\nPaiement électronique transfert d’argent (Wari, Orange money,Wave ,Wafacash, Cofina, Moneygram), les frais de transferts sont à la charge du client.\nPaiement à l’agence"
             );
             // End Modalites de paiement  
             $contrat->setArticle4($entityContrat->getArticle4());
@@ -198,15 +203,16 @@ class OtherContratController extends AbstractController
                     ->setArticle8($entityContrat->getArticle8())
                     ->setArticle9($entityContrat->getArticle9())
                     ->setArticle10($entityContrat->getArticle10().
-            "<br/>Fait à Dakar le $jour, en deux exemplaires, chaque partie reconnaissant avoir reçu le tien.
-            <br /> Signature précédée de la mention « lu et approuvé »");
+                    "Fait à Dakar le $jour, en deux exemplaires, chaque partie reconnaissant avoir reçu le tien
+                    Signature précédée de la mention « lu et approuvé »");
 
                 //    dd($contrat);
             $em->persist($contrat); $em->flush();
 
-            $dataContrat=$serializerInt->serialize($contrat,'json');
-            return new Response($dataContrat, 201,['content-Type'=> 'application/json']);
-           
+          
+        $dataContrat=$serializerInt->serialize($contrat,'json',['groups'=>'get:contrat']);
+
+        return new Response($dataContrat, 201,['content-Type'=> 'application/json' ]);   
            
         }else{
             throw new Exception("Pas de client trouver");
@@ -220,6 +226,10 @@ class OtherContratController extends AbstractController
     }
             
       
+    
+
+
+
     
 
 

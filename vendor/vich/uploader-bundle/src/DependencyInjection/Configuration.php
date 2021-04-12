@@ -2,6 +2,7 @@
 
 namespace Vich\UploaderBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\BaseNode;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -13,14 +14,14 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 final class Configuration implements ConfigurationInterface
 {
-    protected $supportedDbDrivers = ['orm', 'mongodb', 'phpcr'];
+    private $supportedDbDrivers = ['orm', 'mongodb', 'phpcr'];
 
-    protected $supportedStorages = ['gaufrette', 'flysystem', 'file_system'];
+    private $supportedStorages = ['gaufrette', 'flysystem', 'file_system'];
 
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $builder = new TreeBuilder('vich_uploader');
-        $root = \method_exists($builder, 'getRootNode') ? $builder->getRootNode() : $builder->root('vich_uploader');
+        $root = $builder->getRootNode();
         $this->addGeneralSection($root);
         $this->addMetadataSection($root);
         $this->addMappingsSection($root);
@@ -28,7 +29,7 @@ final class Configuration implements ConfigurationInterface
         return $builder;
     }
 
-    protected function addGeneralSection(ArrayNodeDefinition $node): void
+    private function addGeneralSection(ArrayNodeDefinition $node): void
     {
         $node
             ->children()
@@ -39,7 +40,7 @@ final class Configuration implements ConfigurationInterface
                     ->isRequired()
                     ->beforeNormalization()
                         ->ifString()
-                        ->then(function ($v) {
+                        ->then(static function ($v) {
                             return \strtolower($v);
                         })
                     ->end()
@@ -57,14 +58,14 @@ final class Configuration implements ConfigurationInterface
                         ->thenInvalid('The storage %s is not supported. Please choose one of '.\implode(', ', $this->supportedStorages).' or provide a service name prefixed with "@".')
                     ->end()
                 ->end()
-            ->scalarNode('templating')->defaultTrue()->end()
+            ->scalarNode('templating')->defaultFalse()->setDeprecated(...$this->getTemplatingDeprecationMessage())->end()
             ->scalarNode('twig')->defaultTrue()->info('twig requires templating')->end()
             ->scalarNode('form')->defaultTrue()->end()
             ->end()
         ;
     }
 
-    protected function addMetadataSection(ArrayNodeDefinition $node): void
+    private function addMetadataSection(ArrayNodeDefinition $node): void
     {
         $node
             ->children()
@@ -93,7 +94,7 @@ final class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    protected function addMappingsSection(ArrayNodeDefinition $node): void
+    private function addMappingsSection(ArrayNodeDefinition $node): void
     {
         $node
             ->children()
@@ -107,7 +108,7 @@ final class Configuration implements ConfigurationInterface
                                 ->addDefaultsIfNotSet()
                                 ->beforeNormalization()
                                     ->ifString()
-                                    ->then(function ($v) {
+                                    ->then(static function ($v) {
                                         return ['service' => $v, 'options' => []];
                                     })
                                 ->end()
@@ -120,7 +121,7 @@ final class Configuration implements ConfigurationInterface
                                 ->addDefaultsIfNotSet()
                                 ->beforeNormalization()
                                     ->ifString()
-                                    ->then(function ($v) {
+                                    ->then(static function ($v) {
                                         return ['service' => $v, 'options' => []];
                                     })
                                 ->end()
@@ -136,7 +137,7 @@ final class Configuration implements ConfigurationInterface
                                 ->defaultNull()
                                 ->beforeNormalization()
                                     ->ifString()
-                                    ->then(function ($v) {
+                                    ->then(static function ($v) {
                                         return \strtolower($v);
                                     })
                                 ->end()
@@ -149,5 +150,22 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end();
+    }
+
+    /**
+     * Keep compatibility with symfony/config < 5.1.
+     *
+     * The signature of method NodeDefinition::setDeprecated() has been updated to
+     * NodeDefinition::setDeprecation(string $package, string $version, string $message).
+     */
+    private function getTemplatingDeprecationMessage(): array
+    {
+        $message = 'The "%node%" option is deprecated.';
+
+        if (\method_exists(BaseNode::class, 'getDeprecation')) {
+            return ['vich/uploader-bundle', '1.13.2', $message];
+        }
+
+        return [$message];
     }
 }

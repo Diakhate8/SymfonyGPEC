@@ -33,12 +33,13 @@ use Symfony\Component\Security\Http\ParameterBagUtils;
  */
 abstract class AbstractRememberMeServices implements RememberMeServicesInterface, LogoutHandlerInterface
 {
-    const COOKIE_DELIMITER = ':';
+    public const COOKIE_DELIMITER = ':';
 
     protected $logger;
     protected $options = [
         'secure' => false,
         'httponly' => true,
+        'samesite' => null,
     ];
     private $providerKey;
     private $secret;
@@ -260,7 +261,7 @@ abstract class AbstractRememberMeServices implements RememberMeServicesInterface
     {
         foreach ($cookieParts as $cookiePart) {
             if (false !== strpos($cookiePart, self::COOKIE_DELIMITER)) {
-                throw new \InvalidArgumentException(sprintf('$cookieParts should not contain the cookie delimiter "%s"', self::COOKIE_DELIMITER));
+                throw new \InvalidArgumentException(sprintf('$cookieParts should not contain the cookie delimiter "%s".', self::COOKIE_DELIMITER));
             }
         }
 
@@ -276,7 +277,7 @@ abstract class AbstractRememberMeServices implements RememberMeServicesInterface
             $this->logger->debug('Clearing remember-me cookie.', ['name' => $this->options['name']]);
         }
 
-        $request->attributes->set(self::COOKIE_ATTR_NAME, new Cookie($this->options['name'], null, 1, $this->options['path'], $this->options['domain'], $this->options['secure'] ?? $request->isSecure(), $this->options['httponly'], false, $this->options['samesite'] ?? null));
+        $request->attributes->set(self::COOKIE_ATTR_NAME, new Cookie($this->options['name'], null, 1, $this->options['path'], $this->options['domain'], $this->options['secure'] ?? $request->isSecure(), $this->options['httponly'], false, $this->options['samesite']));
     }
 
     /**

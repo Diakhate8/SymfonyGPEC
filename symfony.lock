@@ -107,6 +107,9 @@
     "doctrine/reflection": {
         "version": "v1.1.0"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.1"
+    },
     "easycorp/easyadmin-bundle": {
         "version": "2.0",
         "recipe": {
@@ -123,6 +126,9 @@
     "fig/link-util": {
         "version": "1.1.0"
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -131,6 +137,9 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.1"
+    },
+    "lcobucci/clock": {
+        "version": "2.0.0"
     },
     "lcobucci/jwt": {
         "version": "3.3.1"
@@ -244,6 +253,9 @@
     "symfony/dependency-injection": {
         "version": "v4.4.4"
     },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/doctrine-bridge": {
         "version": "v4.4.4"
     },
@@ -303,6 +315,9 @@
             "src/Kernel.php"
         ]
     },
+    "symfony/http-client-contracts": {
+        "version": "v2.3.1"
+    },
     "symfony/http-foundation": {
         "version": "v4.4.4"
     },
@@ -354,6 +369,9 @@
     "symfony/polyfill-php73": {
         "version": "v1.13.1"
     },
+    "symfony/polyfill-php80": {
+        "version": "v1.22.1"
+    },
     "symfony/process": {
         "version": "v4.4.4"
     },
@@ -403,6 +421,9 @@
     },
     "symfony/serializer": {
         "version": "v4.4.4"
+    },
+    "symfony/serializer-pack": {
+        "version": "v1.0.4"
     },
     "symfony/service-contracts": {
         "version": "v2.0.1"

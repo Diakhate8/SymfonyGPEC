@@ -26,7 +26,7 @@ class Contrat extends \App\Entity\Contrat implements \Doctrine\ORM\Proxy\Proxy
     /**
      * @var boolean flag indicating if this object was already initialized
      *
-     * @see \Doctrine\Common\Persistence\Proxy::__isInitialized
+     * @see \Doctrine\Persistence\Proxy::__isInitialized
      */
     public $__isInitialized__ = false;
 
@@ -66,10 +66,10 @@ class Contrat extends \App\Entity\Contrat implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'numContrat', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'reference', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'libele', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'intitule', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'arrete', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'preambule', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article1', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article2', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article3', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article4', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article5', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article6', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article7', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article8', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article9', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article10', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'factures', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'client', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'createdAt', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'userCreateur', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'echeancier'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'numContrat', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'reference', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'libele', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'intitule', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'arrete', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'preambule', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article1', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article2', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article3', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article4', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article5', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article6', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article7', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article8', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article9', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article10', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'factures', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'client', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'createdAt', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'userCreateur', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'echeancier', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'commandes'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'numContrat', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'reference', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'libele', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'intitule', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'arrete', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'preambule', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article1', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article2', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article3', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article4', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article5', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article6', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article7', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article8', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article9', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article10', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'factures', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'client', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'createdAt', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'userCreateur', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'echeancier'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'numContrat', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'reference', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'libele', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'intitule', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'arrete', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'preambule', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article1', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article2', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article3', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article4', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article5', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article6', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article7', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article8', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article9', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'article10', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'factures', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'client', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'createdAt', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'userCreateur', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'echeancier', '' . "\0" . 'App\\Entity\\Contrat' . "\0" . 'commandes'];
     }
 
     /**
@@ -662,6 +662,39 @@ class Contrat extends \App\Entity\Contrat implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEcheancier', [$echeancier]);
 
         return parent::setEcheancier($echeancier);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCommandes(): \Doctrine\Common\Collections\Collection
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCommandes', []);
+
+        return parent::getCommandes();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addCommande(\App\Entity\Commande $commande): \App\Entity\Contrat
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addCommande', [$commande]);
+
+        return parent::addCommande($commande);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeCommande(\App\Entity\Commande $commande): \App\Entity\Contrat
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeCommande', [$commande]);
+
+        return parent::removeCommande($commande);
     }
 
 }

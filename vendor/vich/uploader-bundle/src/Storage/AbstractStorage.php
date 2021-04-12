@@ -36,12 +36,13 @@ abstract class AbstractStorage implements StorageInterface
 
         $name = $mapping->getUploadName($obj);
         $mapping->setFileName($obj, $name);
+        $mimeType = $file->getMimeType();
 
         $mapping->writeProperty($obj, 'size', $file->getSize());
-        $mapping->writeProperty($obj, 'mimeType', $file->getMimeType());
+        $mapping->writeProperty($obj, 'mimeType', $mimeType);
         $mapping->writeProperty($obj, 'originalName', $file->getClientOriginalName());
 
-        if (false !== \strpos($file->getMimeType(), 'image/') && 'image/svg+xml' !== $file->getMimeType() && false !== $dimensions = @\getimagesize($file)) {
+        if (false !== \strpos($mimeType, 'image/') && 'image/svg+xml' !== $mimeType && false !== $dimensions = @\getimagesize($file)) {
             $mapping->writeProperty($obj, 'dimensions', \array_splice($dimensions, 0, 2));
         }
 
@@ -67,7 +68,7 @@ abstract class AbstractStorage implements StorageInterface
      * Do resolve path.
      *
      * @param PropertyMapping $mapping  The mapping representing the field
-     * @param string          $dir      The directory in which the file is uploaded
+     * @param string|null     $dir      The directory in which the file is uploaded
      * @param string          $name     The file name
      * @param bool            $relative Whether the path should be relative or absolute
      */
@@ -112,7 +113,7 @@ abstract class AbstractStorage implements StorageInterface
     /**
      * note: extension point.
      *
-     * @param $obj
+     * @param object $obj
      *
      * @throws MappingNotFoundException
      * @throws \RuntimeException

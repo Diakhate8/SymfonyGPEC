@@ -1,5 +1,4 @@
 {
-    "Version": "36",
     "Names": {
         "ADP": [
             "ADP",
@@ -71,7 +70,7 @@
         ],
         "ATS": [
             "ATS",
-            "ATS"
+            "Scilling na hOstaire"
         ],
         "AUD": [
             "A$",
@@ -111,7 +110,7 @@
         ],
         "BEC": [
             "BEC",
-            "BEC"
+            "Franc na Beilge (inmhalartaithe)"
         ],
         "BEF": [
             "BEF",
@@ -119,7 +118,7 @@
         ],
         "BEL": [
             "BEL",
-            "BEL"
+            "Franc na Beilge (airgeadais)"
         ],
         "BGL": [
             "BGL",
@@ -251,7 +250,7 @@
         ],
         "CNH": [
             "CNH",
-            "CNH"
+            "Yuan na Síne (seachairgeadra)"
         ],
         "CNY": [
             "CN¥",
@@ -299,7 +298,7 @@
         ],
         "DDM": [
             "DDM",
-            "DDM"
+            "Marc Ghearmáin an Oirthir"
         ],
         "DEM": [
             "DEM",
@@ -375,7 +374,7 @@
         ],
         "FRF": [
             "FRF",
-            "FRF"
+            "Franc na Fraince"
         ],
         "GBP": [
             "£",
@@ -583,7 +582,7 @@
         ],
         "LUC": [
             "LUC",
-            "LUC"
+            "Franc Inmhalartach Lucsamburgach"
         ],
         "LUF": [
             "LUF",
@@ -595,7 +594,7 @@
         ],
         "LVR": [
             "LVR",
-            "LVR"
+            "Rúbal na Laitvia"
         ],
         "LYD": [
             "LYD",
@@ -687,7 +686,7 @@
         ],
         "MXV": [
             "MXV",
-            "MXV"
+            "Aonad Infheistíochta Meicsiceach"
         ],
         "MYR": [
             "MYR",
@@ -1071,7 +1070,7 @@
         ],
         "YUN": [
             "YUN",
-            "YUN"
+            "Dinar Inmhalartaithe Iúgslavach (1990–1992)"
         ],
         "YUR": [
             "YUR",

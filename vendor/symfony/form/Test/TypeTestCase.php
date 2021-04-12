@@ -17,8 +17,6 @@ use Symfony\Component\Form\Test\Traits\ValidatorExtensionTrait;
 
 abstract class TypeTestCase extends FormIntegrationTestCase
 {
-    use ForwardCompatTestTrait;
-
     /**
      * @var FormBuilder
      */
@@ -29,15 +27,15 @@ abstract class TypeTestCase extends FormIntegrationTestCase
      */
     protected $dispatcher;
 
-    private function doSetUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->dispatcher = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
+        $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->builder = new FormBuilder('', null, $this->dispatcher, $this->factory);
     }
 
-    private function doTearDown()
+    protected function tearDown(): void
     {
         if (\in_array(ValidatorExtensionTrait::class, class_uses($this))) {
             $this->validator = null;

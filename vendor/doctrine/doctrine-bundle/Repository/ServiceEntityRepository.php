@@ -19,13 +19,18 @@ use LogicException;
  *         parent::__construct($registry, YourEntity::class);
  *     }
  * }
+ *
+ * @template T
+ * @template-extends EntityRepository<T>
  */
 class ServiceEntityRepository extends EntityRepository implements ServiceEntityRepositoryInterface
 {
     /**
      * @param string $entityClass The class name of the entity this repository manages
+     *
+     * @psalm-param class-string<T> $entityClass
      */
-    public function __construct(ManagerRegistry $registry, $entityClass)
+    public function __construct(ManagerRegistry $registry, string $entityClass)
     {
         $manager = $registry->getManagerForClass($entityClass);
 

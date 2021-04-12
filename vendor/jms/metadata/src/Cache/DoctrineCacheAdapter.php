@@ -10,7 +10,7 @@ use Metadata\ClassMetadata;
 /**
  * @author Henrik Bjornskov <henrik@bjrnskov.dk>
  */
-class DoctrineCacheAdapter implements CacheInterface
+class DoctrineCacheAdapter implements CacheInterface, ClearableCacheInterface
 {
     /**
      * @var string
@@ -27,28 +27,29 @@ class DoctrineCacheAdapter implements CacheInterface
         $this->cache = $cache;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(string $class): ?ClassMetadata
     {
         $cache = $this->cache->fetch($this->prefix . $class);
+
         return false === $cache ? null : $cache;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function put(ClassMetadata $metadata): void
     {
         $this->cache->save($this->prefix . $metadata->name, $metadata);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function evict(string $class): void
     {
         $this->cache->delete($this->prefix . $class);
+    }
+
+    public function clear(): bool
+    {
+        if (method_exists($this->cache, 'deleteAll')) { // or $this->cache instanceof ClearableCache
+            return call_user_func([$this->cache, 'deleteAll']);
+        }
+
+        return false;
     }
 }

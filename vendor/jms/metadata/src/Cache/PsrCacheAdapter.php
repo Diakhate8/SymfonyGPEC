@@ -7,7 +7,7 @@ namespace Metadata\Cache;
 use Metadata\ClassMetadata;
 use Psr\Cache\CacheItemPoolInterface;
 
-class PsrCacheAdapter implements CacheInterface
+class PsrCacheAdapter implements CacheInterface, ClearableCacheInterface
 {
     /**
      * @var string
@@ -30,22 +30,16 @@ class PsrCacheAdapter implements CacheInterface
         $this->pool = $pool;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function load(string $class): ?ClassMetadata
     {
-        $this->lastItem = $this->pool->getItem(strtr($this->prefix . $class, '\\', '.'));
+        $this->lastItem = $this->pool->getItem($this->sanitizeCacheKey($this->prefix . $class));
 
         return $this->lastItem->get();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function put(ClassMetadata $metadata): void
     {
-        $key = strtr($this->prefix . $metadata->name, '\\', '.');
+        $key = $this->sanitizeCacheKey($this->prefix . $metadata->name);
 
         if (null === $this->lastItem || $this->lastItem->getKey() !== $key) {
             $this->lastItem = $this->pool->getItem($key);
@@ -54,11 +48,22 @@ class PsrCacheAdapter implements CacheInterface
         $this->pool->save($this->lastItem->set($metadata));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function evict(string $class): void
     {
-        $this->pool->deleteItem(strtr($this->prefix . $class, '\\', '.'));
+        $this->pool->deleteItem($this->sanitizeCacheKey($this->prefix . $class));
+    }
+
+    public function clear(): bool
+    {
+        return $this->pool->clear();
+    }
+
+    /**
+     * If anonymous class is to be cached, it contains invalid path characters that need to be removed/replaced
+     * Example of anonymous class name: class@anonymous\x00/app/src/Controller/DefaultController.php0x7f82a7e026ec
+     */
+    private function sanitizeCacheKey(string $key): string
+    {
+        return str_replace(['\\', "\0", '@', '/', '$', '{', '}', ':'], '-', $key);
     }
 }

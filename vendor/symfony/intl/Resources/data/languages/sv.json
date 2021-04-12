@@ -1,5 +1,4 @@
 {
-    "Version": "36",
     "Names": {
         "aa": "afar",
         "ab": "abchaziska",
@@ -410,7 +409,7 @@
         "pap": "papiamento",
         "pau": "palau",
         "pcd": "pikardiska",
-        "pcm": "Nigeria-pidgin",
+        "pcm": "nigeriansk pidgin",
         "pdc": "Pennsylvaniatyska",
         "pdt": "mennonitisk lågtyska",
         "peo": "fornpersiska",
@@ -466,7 +465,7 @@
         "seh": "sena",
         "sei": "seri",
         "sel": "selkup",
-        "ses": "Gao-songhai",
+        "ses": "songhai",
         "sg": "sango",
         "sga": "forniriska",
         "sgs": "samogitiska",
@@ -606,6 +605,7 @@
         "es_419": "latinamerikansk spanska",
         "es_ES": "europeisk spanska",
         "es_MX": "mexikansk spanska",
+        "fa_AF": "dari",
         "fr_CA": "kanadensisk franska",
         "fr_CH": "schweizisk franska",
         "nds_NL": "lågsaxiska",

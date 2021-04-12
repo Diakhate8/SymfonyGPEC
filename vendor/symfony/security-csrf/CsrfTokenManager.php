@@ -59,14 +59,14 @@ class CsrfTokenManager implements CsrfTokenManagerInterface
         } elseif (\is_callable($namespace) || \is_string($namespace)) {
             $this->namespace = $namespace;
         } else {
-            throw new InvalidArgumentException(sprintf('$namespace must be a string, a callable returning a string, null or an instance of "RequestStack". "%s" given.', \gettype($namespace)));
+            throw new InvalidArgumentException(sprintf('$namespace must be a string, a callable returning a string, null or an instance of "RequestStack". "%s" given.', get_debug_type($namespace)));
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getToken($tokenId)
+    public function getToken(string $tokenId)
     {
         $namespacedId = $this->getNamespace().$tokenId;
         if ($this->storage->hasToken($namespacedId)) {
@@ -83,7 +83,7 @@ class CsrfTokenManager implements CsrfTokenManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function refreshToken($tokenId)
+    public function refreshToken(string $tokenId)
     {
         $namespacedId = $this->getNamespace().$tokenId;
         $value = $this->generator->generateToken();
@@ -96,7 +96,7 @@ class CsrfTokenManager implements CsrfTokenManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function removeToken($tokenId)
+    public function removeToken(string $tokenId)
     {
         return $this->storage->removeToken($this->getNamespace().$tokenId);
     }

@@ -51,7 +51,7 @@ class DateIntervalToStringTransformer implements DataTransformerInterface
             return '';
         }
         if (!$value instanceof \DateInterval) {
-            throw new UnexpectedTypeException($value, '\DateInterval');
+            throw new UnexpectedTypeException($value, \DateInterval::class);
         }
 
         return $value->format($this->format);
@@ -79,7 +79,7 @@ class DateIntervalToStringTransformer implements DataTransformerInterface
             return null;
         }
         if (!$this->isISO8601($value)) {
-            throw new TransformationFailedException('Non ISO 8601 date strings are not supported yet');
+            throw new TransformationFailedException('Non ISO 8601 date strings are not supported yet.');
         }
         $valuePattern = '/^'.preg_replace('/%([yYmMdDhHiIsSwW])(\w)/', '(?P<$1>\d+)$2', $this->format).'$/';
         if (!preg_match($valuePattern, $value)) {

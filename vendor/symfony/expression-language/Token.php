@@ -22,12 +22,12 @@ class Token
     public $type;
     public $cursor;
 
-    const EOF_TYPE = 'end of expression';
-    const NAME_TYPE = 'name';
-    const NUMBER_TYPE = 'number';
-    const STRING_TYPE = 'string';
-    const OPERATOR_TYPE = 'operator';
-    const PUNCTUATION_TYPE = 'punctuation';
+    public const EOF_TYPE = 'end of expression';
+    public const NAME_TYPE = 'name';
+    public const NUMBER_TYPE = 'number';
+    public const STRING_TYPE = 'string';
+    public const OPERATOR_TYPE = 'operator';
+    public const PUNCTUATION_TYPE = 'punctuation';
 
     /**
      * @param string                $type   The type of the token (self::*_TYPE)
@@ -54,12 +54,11 @@ class Token
     /**
      * Tests the current token for a type and/or a value.
      *
-     * @param array|int   $type  The type to test
-     * @param string|null $value The token value
+     * @param string $type The type to test
      *
      * @return bool
      */
-    public function test($type, $value = null)
+    public function test($type, string $value = null)
     {
         return $this->type === $type && (null === $value || $this->value == $value);
     }

@@ -18,31 +18,34 @@ class Commande
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:read", "post:write", "get:vente", "get:contrat"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:read", "post:write", "get:vente","get:contrat"})
+     * @Assert\NotBlank(message="Entrez la designation de l'article")
      */
     private $designation;
 
     /**
      * @ORM\Column(type="bigint")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:read", "post:write", "get:vente","get:contrat"})
+     * @Assert\NotBlank(message="Entrez le prix unitaire")
      */
     private $prixUnitaire;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:read", "post:write", "get:vente","get:contrat"})
+     * @Assert\NotBlank(message="Entrez le nombre d'articles")
      */
     private $nombre;
 
     /**
      * @ORM\Column(type="bigint")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:read", "post:write", "get:vente","get:contrat"})
      */
     private $prixTotal;
 
@@ -51,6 +54,12 @@ class Commande
      * @ORM\JoinColumn(nullable=false)
      */
     private $facture;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Contrat::class, inversedBy="commandes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $contrat;
 
 
     public function getId(): ?int
@@ -114,6 +123,18 @@ class Commande
     public function setFacture(?Facture $facture): self
     {
         $this->facture = $facture;
+
+        return $this;
+    }
+
+    public function getContrat(): ?Contrat
+    {
+        return $this->contrat;
+    }
+
+    public function setContrat(?Contrat $contrat): self
+    {
+        $this->contrat = $contrat;
 
         return $this;
     }

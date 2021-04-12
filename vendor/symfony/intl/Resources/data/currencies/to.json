@@ -1,13 +1,12 @@
 {
-    "Version": "36",
     "Names": {
         "AUD": [
             "AUD$",
             "Tola fakaʻaositelēlia"
         ],
-        "BRL": [
-            "R$",
-            "BRL"
+        "EUR": [
+            "€",
+            "ʻEulo"
         ],
         "FJD": [
             "FJD",

@@ -63,15 +63,15 @@ abstract class IntlDateFormatter
     protected $errorMessage = 'U_ZERO_ERROR';
 
     /* date/time format types */
-    const NONE = -1;
-    const FULL = 0;
-    const LONG = 1;
-    const MEDIUM = 2;
-    const SHORT = 3;
+    public const NONE = -1;
+    public const FULL = 0;
+    public const LONG = 1;
+    public const MEDIUM = 2;
+    public const SHORT = 3;
 
     /* calendar formats */
-    const TRADITIONAL = 0;
-    const GREGORIAN = 1;
+    public const TRADITIONAL = 0;
+    public const GREGORIAN = 1;
 
     /**
      * Patterns used to format the date when no pattern is provided.
@@ -145,6 +145,10 @@ abstract class IntlDateFormatter
         $this->datetype = null !== $datetype ? $datetype : self::FULL;
         $this->timetype = null !== $timetype ? $timetype : self::FULL;
 
+        if ('' === ($pattern ?? '')) {
+            $pattern = $this->getDefaultPattern();
+        }
+
         $this->setPattern($pattern);
         $this->setTimeZone($timezone);
     }
@@ -168,7 +172,7 @@ abstract class IntlDateFormatter
      * @throws MethodArgumentValueNotImplementedException When $locale different than "en" or null is passed
      * @throws MethodArgumentValueNotImplementedException When $calendar different than GREGORIAN is passed
      */
-    public static function create($locale, $datetype, $timetype, $timezone = null, $calendar = self::GREGORIAN, $pattern = null)
+    public static function create(?string $locale, ?int $datetype, ?int $timetype, $timezone = null, int $calendar = self::GREGORIAN, ?string $pattern = null)
     {
         return new static($locale, $datetype, $timetype, $timezone, $calendar, $pattern);
     }
@@ -225,7 +229,6 @@ abstract class IntlDateFormatter
     /**
      * Not supported. Formats an object.
      *
-     * @param object $object
      * @param mixed  $format
      * @param string $locale
      *
@@ -235,7 +238,7 @@ abstract class IntlDateFormatter
      *
      * @throws MethodNotImplementedException
      */
-    public function formatObject($object, $format = null, $locale = null)
+    public function formatObject(object $object, $format = null, string $locale = null)
     {
         throw new MethodNotImplementedException(__METHOD__);
     }
@@ -313,7 +316,7 @@ abstract class IntlDateFormatter
      *
      * @see https://php.net/intldateformatter.getlocale
      */
-    public function getLocale($type = Locale::ACTUAL_LOCALE)
+    public function getLocale(int $type = Locale::ACTUAL_LOCALE)
     {
         return 'en';
     }
@@ -401,7 +404,7 @@ abstract class IntlDateFormatter
      *
      * @throws MethodNotImplementedException
      */
-    public function localtime($value, &$position = 0)
+    public function localtime(string $value, int &$position = 0)
     {
         throw new MethodNotImplementedException(__METHOD__);
     }
@@ -421,7 +424,7 @@ abstract class IntlDateFormatter
      *
      * @throws MethodArgumentNotImplementedException When $position different than null, behavior not implemented
      */
-    public function parse($value, &$position = null)
+    public function parse(string $value, int &$position = null)
     {
         // We don't calculate the position when parsing the value
         if (null !== $position) {
@@ -451,7 +454,7 @@ abstract class IntlDateFormatter
      *
      * @throws MethodNotImplementedException
      */
-    public function setCalendar($calendar)
+    public function setCalendar(string $calendar)
     {
         throw new MethodNotImplementedException(__METHOD__);
     }
@@ -473,7 +476,7 @@ abstract class IntlDateFormatter
      *
      * @throws MethodArgumentValueNotImplementedException When $lenient is true
      */
-    public function setLenient($lenient)
+    public function setLenient(bool $lenient)
     {
         if ($lenient) {
             throw new MethodArgumentValueNotImplementedException(__METHOD__, 'lenient', $lenient, 'Only the strict parser is supported');
@@ -485,20 +488,16 @@ abstract class IntlDateFormatter
     /**
      * Set the formatter's pattern.
      *
-     * @param string|null $pattern A pattern string in conformance with the ICU IntlDateFormatter documentation
+     * @param string $pattern A pattern string in conformance with the ICU IntlDateFormatter documentation
      *
      * @return bool true on success or false on failure
      *
      * @see https://php.net/intldateformatter.setpattern
      * @see http://userguide.icu-project.org/formatparse/datetime
      */
-    public function setPattern($pattern)
+    public function setPattern(?string $pattern)
     {
-        if (null === $pattern) {
-            $pattern = $this->getDefaultPattern();
-        }
-
-        $this->pattern = $pattern;
+        $this->pattern = (string) $pattern;
 
         return true;
     }
@@ -514,7 +513,7 @@ abstract class IntlDateFormatter
      *
      * @see https://php.net/intldateformatter.settimezoneid
      */
-    public function setTimeZoneId($timeZoneId)
+    public function setTimeZoneId(?string $timeZoneId)
     {
         if (null === $timeZoneId) {
             $timeZoneId = date_default_timezone_get();
@@ -580,11 +579,9 @@ abstract class IntlDateFormatter
      * Create and returns a DateTime object with the specified timestamp and with the
      * current time zone.
      *
-     * @param int $timestamp
-     *
      * @return \DateTime
      */
-    protected function createDateTime($timestamp)
+    protected function createDateTime(int $timestamp)
     {
         $dateTime = new \DateTime();
         $dateTime->setTimestamp($timestamp);

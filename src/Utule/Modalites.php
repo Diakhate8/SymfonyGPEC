@@ -10,12 +10,12 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 class Modalites{
 
     public function formaterDate($date1){
-        $this->date = \DateTime::createFromFormat('Y-m-d',$date1);
+        $this->date = \DateTime::createFromFormat('d/m/Y',$date1);
         return $this->date;
     }
 
     public function modalite($dataSc){
-        $format= 'Y-m-d';
+        $format= 'd/m/Y';
         if(empty($dataSc->premierE)|| empty($dataSc->premierMont)){
             throw new Exception("Entrez saisir le premier echeancier ");  
         }else{

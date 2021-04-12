@@ -33,8 +33,7 @@ class ShowContratController extends AbstractController
      * message=" Access refuser vous n'etes pas Administrateur")
      * @Route("/showventes", name="ventes.show", methods={"Get"})
      */
-    public function showVente( Request $request, EntityManagerInterface $em,
-    ContratRepository $contratRepo, SerializerInterface $serializerInt)
+    public function showVente( ContratRepository $contratRepo, SerializerInterface $serializerInt)
     {
         $userOnline = $this->getUser();
         $idUser = $userOnline->getId(); $roleUser =  $userOnline->getRoles()[0];
@@ -45,13 +44,13 @@ class ShowContratController extends AbstractController
         if($roleUser==='ROLE_ADMIN'|| $roleUser==='ROLE_ASSISTANT'){
             $vente=$contratRepo->AdminFindVentes($idUser);
         }
-       
-        // $data=json_encode($vente);
-        // $data = $serializerInt->serialize($vente,'json',['groups'=> 'post:read']);
-
-        // dd($data);
-        $ventes = $serializerInt->serialize($vente,'json');
-        return new Response($ventes , 200, ['Content-Type'=>'application/json']);
-        // return $this->json($ventes , 200, [],['groups'=> 'post:read']);
+        // dd($vente);
+        //$ventes = $serializerInt->serialize($vente,'json');
+        // return new Response($ventes , 200, ['Content-Type'=>'application/json']);
+       // return new Response($ventes, 200,['content-Type'=> 'application/json' ]);   
+        $ventes =$serializerInt->serialize($vente,'json',['groups'=>'get:contrat']);
+        // dd($ventes);
+        //return $this->json($ventes , 200, [],['groups'=> 'get:vente']);
+        return new Response($ventes , 200,['content-Type'=> 'application/json']);
     }
 }

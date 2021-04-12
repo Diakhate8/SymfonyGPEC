@@ -62,7 +62,7 @@ Now you can define the ``restockAction()`` method in your own controller:
 
         public function restockAction()
         {
-            // controllers extending the base AdminController get access to the
+            // controllers extending the EasyAdminController get access to the
             // following variables:
             //   $this->request, stores the current request
             //   $this->em, stores the Entity Manager for this Doctrine entity
@@ -74,17 +74,17 @@ Now you can define the ``restockAction()`` method in your own controller:
             $this->em->flush();
 
             // redirect to the 'list' view of the given entity ...
-            return $this->redirectToRoute('easyadmin', array(
+            return $this->redirectToRoute('easyadmin', [
                 'action' => 'list',
                 'entity' => $this->request->query->get('entity'),
-            ));
+            ]);
 
             // ... or redirect to the 'edit' view of the given entity item
-            return $this->redirectToRoute('easyadmin', array(
+            return $this->redirectToRoute('easyadmin', [
                 'action' => 'edit',
                 'id' => $id,
                 'entity' => $this->request->query->get('entity'),
-            ));
+            ]);
         }
     }
 
@@ -139,6 +139,9 @@ add a ``type`` option with the ``route`` value:
                 list:
                     actions:
                         - { name: 'product_restock', type: 'route' }
+
+                        # these actions can define route parameters too
+                        - { name: 'product_restock', type: 'route', route_parameters: { 'notify': true, 'amount': 30 } }
             # ...
 
 Route based actions are displayed as regular links or buttons, but they don't
@@ -177,17 +180,17 @@ would look as follows:
             $em->flush();
 
             // redirect to the 'list' view of the given entity ...
-            return $this->redirectToRoute('easyadmin', array(
+            return $this->redirectToRoute('easyadmin', [
                 'action' => 'list',
                 'entity' => $request->query->get('entity'),
-            ));
+            ]);
 
             // ... or redirect to the 'edit' view of the given entity item
-            return $this->redirectToRoute('easyadmin', array(
+            return $this->redirectToRoute('easyadmin', [
                 'action' => 'edit',
                 'id' => $id,
                 'entity' => $request->query->get('entity'),
-            ));
+            ]);
         }
     }
 

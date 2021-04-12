@@ -22,17 +22,21 @@ class ContratRepository extends ServiceEntityRepository
     public function AdminSysfindVentes()
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT C.id, C.numClient, C.prenom, C.nom,
-                 Co.numContrat, Co.reference
-                FROM  App\Entity\User U, App\Entity\Client C, App\Entity\Contrat Co,
-                 App\Entity\Facture F ,App\Entity\Echeancier E, App\Entity\Commande Com
-                WHERE C.id = Co.client
-                --  AND F.contrat = Co.id AND Co.echeancier = E.id
+            ->createQuery(' SELECT DISTINCT Co
+                FROM App\Entity\Facture F, App\Entity\Contrat Co
+                WHERE Co.id = F.contrat
             ')
             ->getResult();
     }
-    
-     // /**
+    // 
+    // App\Entity\Commande Com
+    // FROM App\Entity\Client C INNER JOIN 
+//     ' SELECT DISTINCT F, Com.designation
+//     FROM App\Entity\Facture F, App\Entity\Commande Com
+//     WHERE F.id = Com.facture 
+// ')
+// ->join('
+    //  // /**
     //  * @return Vente[] Returns an array of Vente objects
     //  */
     

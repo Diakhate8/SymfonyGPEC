@@ -30,7 +30,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
  */
 class ServerLogCommand extends Command
 {
-    private static $bgColor = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow'];
+    private const BG_COLOR = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow'];
 
     private $el;
     private $handler;
@@ -80,7 +80,7 @@ EOF
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        @trigger_error('Using the WebserverBundle is deprecated since Symfony 4.4. Use the DebugBundle combined with MonologBridge instead.', E_USER_DEPRECATED);
+        @trigger_error('Using the WebserverBundle is deprecated since Symfony 4.4. Use the DebugBundle combined with MonologBridge instead.', \E_USER_DEPRECATED);
 
         $filter = $input->getOption('filter');
         if ($filter) {
@@ -106,7 +106,7 @@ EOF
         }
 
         if (!$socket = stream_socket_server($host, $errno, $errstr)) {
-            throw new RuntimeException(sprintf('Server start failed on "%s": %s %s.', $host, $errstr, $errno));
+            throw new RuntimeException(sprintf('Server start failed on "%s": ', $host).$errstr.' '.$errno);
         }
 
         foreach ($this->getLogs($socket) as $clientId => $message) {
@@ -155,7 +155,7 @@ EOF
         if (isset($record['log_id'])) {
             $clientId = unpack('H*', $record['log_id'])[1];
         }
-        $logBlock = sprintf('<bg=%s> </>', self::$bgColor[$clientId % 8]);
+        $logBlock = sprintf('<bg=%s> </>', self::BG_COLOR[$clientId % 8]);
         $output->write($logBlock);
 
         $this->handler->handle($record);

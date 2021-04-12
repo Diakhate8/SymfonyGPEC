@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\ClientRepository")
  * @UniqueEntity(fields = {"numClient"},message ="un client est deja enregistré sur ce numero") 
  * @UniqueEntity(fields = {"cni"},message ="un client est deja enregistré sur ce cni") 
- * @UniqueEntity(fields = {"telephone"},message ="un client est deja enregistré sur ce numero de") 
+ * @UniqueEntity(fields = {"telephone"},message ="un client est deja enregistré sur ce numero de telephone") 
  */
 class Client 
 {
@@ -25,28 +25,28 @@ class Client
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:write", "get:vente"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      * @Assert\NotBlank(message="Entrez le numero du client")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:write", "get:vente"})
      */
     private $numClient;
  
      /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Veuillez entrez le prenom")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:write", "get:vente", "get:contrat"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Veuillez entrez le nom")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:write", "get:vente", "get:contrat"})
      */
     private $nom;
 
@@ -66,35 +66,33 @@ class Client
     
     /**
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="Entrez la piece didentite ou passeword du client")
+     * @Assert\NotBlank(message="Entrez la piece didentite ou passeport du client")
+     * @Groups({"post:write"})
      */
     private $cni;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"post:write"})
      */
     private $dateDCni;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"post:write"})
      */
     private $dateECni;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"post:write"})
      */
     private $domicile;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"post:read", "post:write"})
-     */
-    private $adresse;
-
-    /**
      * @ORM\Column(type="bigint", unique=true)
      * @Assert\NotBlank(message="entrez le numero de telephone")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:write", "get:contrat"})
      */
     private $telephone;
 
@@ -105,7 +103,7 @@ class Client
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Contrat", mappedBy="userCreateur")
-     * @Groups({"post:read", "post:write"})
+     * @Groups({"post:write"})
      */
     private $contrat;
 
@@ -235,18 +233,6 @@ class Client
         return $this;
     }
 
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(string $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
     public function getTelephone(): ?string
     {
         return $this->telephone;
@@ -294,4 +280,24 @@ class Client
 
    
    
+
+    /**
+     * Get the value of contrat
+     */ 
+    public function getContrat()
+    {
+        return $this->contrat;
+    }
+
+    /**
+     * Set the value of contrat
+     *
+     * @return  self
+     */ 
+    public function setContrat($contrat)
+    {
+        $this->contrat = $contrat;
+
+        return $this;
+    }
 }
